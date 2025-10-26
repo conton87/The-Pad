@@ -1,0 +1,9 @@
+{
+  "name": "The Pad",
+  "short_name": "The Pad",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111111",
+  "description": "Capture, review, and organize ideas from anywhere."
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>The Pad</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="app-title">The Pad</h1>
+    <label class="visually-hidden" for="search-input">Search ideas</label>
+    <input type="search" id="search-input" placeholder="Search ideas..." aria-label="Search ideas">
+    <div class="header-actions">
+      <button id="toggle-view" type="button" aria-pressed="false" aria-label="Toggle list or calendar view">Show Calendar</button>
+      <button id="export-btn" type="button">Export JSON</button>
+      <label class="import-label" for="import-input">
+        <span>Import JSON</span>
+        <input type="file" id="import-input" accept="application/json" aria-label="Import ideas from JSON">
+      </label>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="filter-notice" role="status" aria-live="polite"></section>
+    <section id="search-results" class="card" aria-live="polite" hidden>
+      <h2>Search results</h2>
+      <ul id="search-results-list"></ul>
+    </section>
+    <section id="list-view" class="view" aria-label="Ideas list">
+      <ul id="ideas-list" class="ideas-list"></ul>
+    </section>
+    <section id="calendar-view" class="view" aria-label="Ideas calendar" hidden>
+      <div class="calendar-header">
+        <button id="prev-month" type="button" aria-label="Previous month">&#9664;</button>
+        <h2 id="calendar-title"></h2>
+        <button id="next-month" type="button" aria-label="Next month">&#9654;</button>
+      </div>
+      <div class="calendar-grid" role="grid" aria-readonly="true">
+        <div class="calendar-row calendar-weekdays">
+          <span>Sun</span>
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+        </div>
+        <div id="calendar-days" class="calendar-days"></div>
+      </div>
+    </section>
+  </main>
+
+  <button id="add-idea" class="fab" type="button" aria-label="Create a new idea">+</button>
+
+  <aside id="idea-panel" aria-hidden="true">
+    <div class="idea-panel-inner" role="dialog" aria-modal="true" aria-labelledby="idea-summary">
+      <button id="close-panel" class="close-panel" type="button" aria-label="Close idea">&times;</button>
+      <form id="idea-form" novalidate>
+        <div class="summary-grid">
+          <label for="idea-summary">Summary</label>
+          <textarea id="idea-summary" rows="3" placeholder="1-3 line summary" aria-describedby="summary-help"></textarea>
+          <p id="summary-help" class="field-help">Keep it short so it stays readable in the list.</p>
+
+          <label for="idea-last-entry">Last entry</label>
+          <input id="idea-last-entry" type="text" readonly>
+
+          <label for="idea-next-step">Next step</label>
+          <input id="idea-next-step" type="text" placeholder="What comes next?">
+        </div>
+
+        <label for="idea-body">Notes</label>
+        <textarea id="idea-body" rows="10" placeholder="Capture ideas, plans, progress..." aria-describedby="autosave-note"></textarea>
+        <p id="autosave-note" class="field-help">Saved automatically as you type.</p>
+
+        <div class="tags-section">
+          <label for="tag-input">Tags</label>
+          <input id="tag-input" type="text" placeholder="Type a tag and press Enter (e.g., #in-progress)">
+          <div id="tags-container" class="tags-container" aria-live="polite"></div>
+        </div>
+
+        <div class="attachments-section">
+          <h3>Attachments</h3>
+          <div class="attachment-actions">
+            <button id="voice-note-btn" type="button" aria-label="Add voice note">Voice note</button>
+            <button id="photo-btn" type="button" aria-label="Add photo">Add photo</button>
+            <button id="link-btn" type="button" aria-label="Add link">Add link</button>
+            <input id="photo-input" type="file" accept="image/*" hidden aria-hidden="true">
+          </div>
+          <ul id="attachments-list" class="attachments-list"></ul>
+        </div>
+
+        <div class="status-row">
+          <label for="idea-closed" class="switch">
+            <input id="idea-closed" type="checkbox">
+            <span class="switch-slider" aria-hidden="true"></span>
+            <span class="switch-label">Close idea</span>
+          </label>
+        </div>
+      </form>
+    </div>
+  </aside>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
